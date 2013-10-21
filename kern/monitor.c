@@ -59,6 +59,32 @@ int
 mon_backtrace(int argc, char **argv, struct Trapframe *tf)
 {
 	// Your code here.
+	cprintf( "Stack backtrace:\n" ) ;
+	uint32_t *ebp ;
+	for ( ebp = ( uint32_t* ) read_ebp() ; ebp != 0 ; ebp = ( uint32_t* ) ebp[ 0 ] )
+	{
+		uint32_t *eip = ( uint32_t* ) ebp[ 1 ] ;
+		uint32_t params1 = ebp[ 2 ] , params2 = ebp[ 3 ] , params3 = ebp[ 4 ] , params4 = ebp[ 5 ] , params5 = ebp[ 6 ] ;
+		cprintf( "  ebp %08x  eip %08x  args %08x %08x %08x %08x %08x\n" , ebp , eip , params1 , params2 , params3 , params4 , params5 ) ;
+
+		struct Eipdebuginfo info ;
+		int result = debuginfo_eip( ( uintptr_t ) eip , &info ) ;
+		if ( result != 0 )
+		{
+			cprintf( "There are something wrong." ) ;
+			while ( 1 ) true ;
+		} else {
+			char file_name[ 100 ] ; // cheat for filename's length
+			int i ;
+			for ( i = 0 ; i < info.eip_fn_namelen ; i ++ )
+				file_name[ i ] = info.eip_fn_name[ i ] ;
+			file_name[ info.eip_fn_namelen ] = '\0' ;
+
+			int delta = ( int ) eip - ( int ) info.eip_fn_addr ;
+
+			cprintf( "\t%s:%d: %s+%d\n" , info.eip_file , info.eip_line , file_name , delta ) ;
+		}
+	}
 	return 0;
 }
 
@@ -113,7 +139,7 @@ monitor(struct Trapframe *tf)
 {
 	char *buf;
 
-	cprintf("Welcome to the JOS kernel monitor!\n");
+	cprintf("%F2Welcome %F1to %B5the %B0JOS %Fekernel %Bamonitor!\n");
 	cprintf("Type 'help' for a list of commands.\n");
 
 

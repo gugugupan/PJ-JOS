@@ -11,6 +11,9 @@
 static void cons_intr(int (*proc)(void));
 static void cons_putc(int c);
 
+int printfmt_font_color = 7 ;
+int printfmt_back_color = 0 ;
+
 // Stupid I/O delay routine necessitated by historical PC design flaws
 static void
 delay(void)
@@ -164,7 +167,7 @@ cga_putc(int c)
 {
 	// if no attribute given, then use black on white
 	if (!(c & ~0xFF))
-		c |= 0x0700;
+		c |= ( printfmt_font_color << 8 ) | ( printfmt_back_color << 12 ) ;
 
 	switch (c & 0xff) {
 	case '\b':
