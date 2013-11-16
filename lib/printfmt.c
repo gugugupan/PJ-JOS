@@ -18,8 +18,8 @@
  * so that -E_NO_MEM and E_NO_MEM are equivalent.
  */
 
-extern int printfmt_font_color ;
-extern int printfmt_back_color ;
+// extern int printfmt_font_color ;
+// extern int printfmt_back_color ;
 
 static const char * const error_string[MAXERROR] =
 {
@@ -98,8 +98,8 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 	char padc;
 
 	// default color
-	printfmt_font_color = 7 ;
-	printfmt_back_color = 0 ;
+	// printfmt_font_color = 7 ;
+	// printfmt_back_color = 0 ;
 
 	while (1) {
 		while ((ch = *(unsigned char *) fmt++) != '%') {
@@ -246,12 +246,12 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 
 		// change font color
 		case 'F':
-			printfmt_font_color = hex2dec( *( char* ) fmt ++ ) ;
+			// printfmt_font_color = hex2dec( *( char* ) fmt ++ ) ;
 			break;
 
 		// change background color
 		case 'B':
-			printfmt_back_color = hex2dec( *( char* ) fmt ++ ) ;
+			// printfmt_back_color = hex2dec( *( char* ) fmt ++ ) ;
 			break;
 
 		// unrecognized escape sequence - just print it literally
