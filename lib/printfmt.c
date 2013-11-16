@@ -18,6 +18,9 @@
  * so that -E_NO_MEM and E_NO_MEM are equivalent.
  */
 
+extern int printfmt_font_color ;
+extern int printfmt_back_color ;
+
 static const char * const error_string[MAXERROR] =
 {
 	[E_UNSPECIFIED]	= "unspecified error",
@@ -79,6 +82,12 @@ getint(va_list *ap, int lflag)
 // Main function to format and print a string.
 void printfmt(void (*putch)(int, void*), void *putdat, const char *fmt, ...);
 
+int hex2dec( char x ) 
+{
+	if ( 'a' <= x && x <= 'z' ) return 10 + x - 'a' ;
+	return x - '0' ;
+}
+
 void
 vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 {
@@ -87,6 +96,10 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 	unsigned long long num;
 	int base, lflag, width, precision, altflag;
 	char padc;
+
+	// default color
+	printfmt_font_color = 7 ;
+	printfmt_back_color = 0 ;
 
 	while (1) {
 		while ((ch = *(unsigned char *) fmt++) != '%') {
@@ -205,11 +218,9 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 
 		// (unsigned) octal
 		case 'o':
-			// Replace this with your code.
-			putch('X', putdat);
-			putch('X', putdat);
-			putch('X', putdat);
-			break;
+			num = getint( &ap , lflag ) ;
+			base = 8 ;
+			goto number ;
 
 		// pointer
 		case 'p':
@@ -231,6 +242,16 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 		// escaped '%' character
 		case '%':
 			putch(ch, putdat);
+			break;
+
+		// change font color
+		case 'F':
+			printfmt_font_color = hex2dec( *( char* ) fmt ++ ) ;
+			break;
+
+		// change background color
+		case 'B':
+			printfmt_back_color = hex2dec( *( char* ) fmt ++ ) ;
 			break;
 
 		// unrecognized escape sequence - just print it literally
