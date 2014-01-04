@@ -43,6 +43,10 @@ enum EnvType {
 	ENV_TYPE_USER = 0,
 };
 
+#define ENV_PRIORITY_HIGH   2
+#define ENV_PRIORITY_NORMAL 1  
+#define ENV_PRIORITY_LOW    0
+
 struct Env {
 	struct Trapframe env_tf;	// Saved registers
 	struct Env *env_link;		// Next free Env
@@ -65,6 +69,9 @@ struct Env {
 	uint32_t env_ipc_value;		// Data value sent to us
 	envid_t env_ipc_from;		// envid of the sender
 	int env_ipc_perm;		// Perm of page mapping received
+
+	// Lab 4 Challenge 2
+	uint32_t env_priority;
 };
 
 #endif // !JOS_INC_ENV_H

@@ -8,6 +8,40 @@
 #include <inc/stdarg.h>
 #include <inc/error.h>
 
+int color_mask = 0x7C00;
+
+int getcolor(char type, int is_back)  
+{
+	switch (type) {
+		case 'R':
+		case 'r':
+			return 4;
+		case 'G':
+		case 'g':
+			return 2;
+		case 'B':
+		case 'b':
+			return 1;
+		case 'C':
+		case 'c':
+			return 3;
+		case 'M':
+		case 'm':
+			return 5;
+		case 'Y':
+		case 'y':
+			return 6;
+		case 'K':
+		case 'k':
+			return 0;
+		case 'W':
+		case 'w':
+			return 7;
+		default:
+			return is_back ? 0 : 7;
+	}
+}  
+
 /*
  * Space or zero padding and a field width are supported for the numeric
  * formats only.
@@ -44,11 +78,11 @@ printnum(void (*putch)(int, void*), void *putdat,
 	} else {
 		// print any needed pad characters before first digit
 		while (--width > 0)
-			putch(padc, putdat);
+			putch(color_mask | padc, putdat);
 	}
 
 	// then print this (the least significant) digit
-	putch("0123456789abcdef"[num % base], putdat);
+	putch(color_mask | "0123456789abcdef"[num % base], putdat);
 }
 
 // Get an unsigned int of various possible sizes from a varargs list,
@@ -89,12 +123,13 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 	unsigned long long num;
 	int base, lflag, width, precision, altflag;
 	char padc;
+	color_mask = 0x0700;
 
 	while (1) {
 		while ((ch = *(unsigned char *) fmt++) != '%') {
 			if (ch == '\0')
 				return;
-			putch(ch, putdat);
+			putch(color_mask | ch, putdat);
 		}
 
 		// Process a %-escape sequence
@@ -159,7 +194,18 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 
 		// character
 		case 'c':
-			putch(va_arg(ap, int), putdat);
+			putch(color_mask | va_arg(ap, int), putdat);
+			break;
+
+		// front color
+		case '<':
+			color_mask &= 0xF0FF;
+			color_mask |= getcolor(*fmt++, 0) << 8;
+			break;
+		// background color
+		case '>':
+			color_mask &= 0x0FFF;
+			color_mask |= getcolor(*fmt++, 1) << 12;
 			break;
 
 		// error message
@@ -179,21 +225,21 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 				p = "(null)";
 			if (width > 0 && padc != '-')
 				for (width -= strnlen(p, precision); width > 0; width--)
-					putch(padc, putdat);
+					putch(color_mask | padc, putdat);
 			for (; (ch = *p++) != '\0' && (precision < 0 || --precision >= 0); width--)
 				if (altflag && (ch < ' ' || ch > '~'))
-					putch('?', putdat);
+					putch(color_mask | '?', putdat);
 				else
-					putch(ch, putdat);
+					putch(color_mask | ch, putdat);
 			for (; width > 0; width--)
-				putch(' ', putdat);
+				putch(color_mask | ' ', putdat);
 			break;
 
 		// (signed) decimal
 		case 'd':
 			num = getint(&ap, lflag);
 			if ((long long) num < 0) {
-				putch('-', putdat);
+				putch(color_mask | '-', putdat);
 				num = -(long long) num;
 			}
 			base = 10;
@@ -207,16 +253,14 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 
 		// (unsigned) octal
 		case 'o':
-			// Replace this with your code.
-			putch('X', putdat);
-			putch('X', putdat);
-			putch('X', putdat);
-			break;
+			num = getuint(&ap, lflag);
+			base = 8;
+			goto number;
 
 		// pointer
 		case 'p':
-			putch('0', putdat);
-			putch('x', putdat);
+			putch(color_mask | '0', putdat);
+			putch(color_mask | 'x', putdat);
 			num = (unsigned long long)
 				(uintptr_t) va_arg(ap, void *);
 			base = 16;
@@ -232,12 +276,12 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 
 		// escaped '%' character
 		case '%':
-			putch(ch, putdat);
+			putch(color_mask | ch, putdat);
 			break;
 
 		// unrecognized escape sequence - just print it literally
 		default:
-			putch('%', putdat);
+			putch(color_mask | '%', putdat);
 			for (fmt--; fmt[-1] != '%'; fmt--)
 				/* do nothing */;
 			break;

@@ -42,15 +42,544 @@
 	pushl $(num);							\
 	jmp _alltraps
 
+.data
+	.globl trap_handlers
+trap_handlers:
+    .long trhdlr0
+    .long trhdlr1
+    .long trhdlr2
+    .long trhdlr3
+    .long trhdlr4
+    .long trhdlr5
+    .long trhdlr6
+    .long trhdlr7
+    .long trhdlr8
+    .long trhdlr9
+    .long trhdlr10
+    .long trhdlr11
+    .long trhdlr12
+    .long trhdlr13
+    .long trhdlr14
+    .long trhdlr15
+    .long trhdlr16
+    .long trhdlr17
+    .long trhdlr18
+    .long trhdlr19
+    .long trhdlr20
+    .long trhdlr21
+    .long trhdlr22
+    .long trhdlr23
+    .long trhdlr24
+    .long trhdlr25
+    .long trhdlr26
+    .long trhdlr27
+    .long trhdlr28
+    .long trhdlr29
+    .long trhdlr30
+    .long trhdlr31
+    .long trhdlr32
+    .long trhdlr33
+    .long trhdlr34
+    .long trhdlr35
+    .long trhdlr36
+    .long trhdlr37
+    .long trhdlr38
+    .long trhdlr39
+    .long trhdlr40
+    .long trhdlr41
+    .long trhdlr42
+    .long trhdlr43
+    .long trhdlr44
+    .long trhdlr45
+    .long trhdlr46
+    .long trhdlr47
+    .long trhdlr48
+    .long trhdlr49
+    .long trhdlr50
+    .long trhdlr51
+    .long trhdlr52
+    .long trhdlr53
+    .long trhdlr54
+    .long trhdlr55
+    .long trhdlr56
+    .long trhdlr57
+    .long trhdlr58
+    .long trhdlr59
+    .long trhdlr60
+    .long trhdlr61
+    .long trhdlr62
+    .long trhdlr63
+    .long trhdlr64
+    .long trhdlr65
+    .long trhdlr66
+    .long trhdlr67
+    .long trhdlr68
+    .long trhdlr69
+    .long trhdlr70
+    .long trhdlr71
+    .long trhdlr72
+    .long trhdlr73
+    .long trhdlr74
+    .long trhdlr75
+    .long trhdlr76
+    .long trhdlr77
+    .long trhdlr78
+    .long trhdlr79
+    .long trhdlr80
+    .long trhdlr81
+    .long trhdlr82
+    .long trhdlr83
+    .long trhdlr84
+    .long trhdlr85
+    .long trhdlr86
+    .long trhdlr87
+    .long trhdlr88
+    .long trhdlr89
+    .long trhdlr90
+    .long trhdlr91
+    .long trhdlr92
+    .long trhdlr93
+    .long trhdlr94
+    .long trhdlr95
+    .long trhdlr96
+    .long trhdlr97
+    .long trhdlr98
+    .long trhdlr99
+    .long trhdlr100
+    .long trhdlr101
+    .long trhdlr102
+    .long trhdlr103
+    .long trhdlr104
+    .long trhdlr105
+    .long trhdlr106
+    .long trhdlr107
+    .long trhdlr108
+    .long trhdlr109
+    .long trhdlr110
+    .long trhdlr111
+    .long trhdlr112
+    .long trhdlr113
+    .long trhdlr114
+    .long trhdlr115
+    .long trhdlr116
+    .long trhdlr117
+    .long trhdlr118
+    .long trhdlr119
+    .long trhdlr120
+    .long trhdlr121
+    .long trhdlr122
+    .long trhdlr123
+    .long trhdlr124
+    .long trhdlr125
+    .long trhdlr126
+    .long trhdlr127
+    .long trhdlr128
+    .long trhdlr129
+    .long trhdlr130
+    .long trhdlr131
+    .long trhdlr132
+    .long trhdlr133
+    .long trhdlr134
+    .long trhdlr135
+    .long trhdlr136
+    .long trhdlr137
+    .long trhdlr138
+    .long trhdlr139
+    .long trhdlr140
+    .long trhdlr141
+    .long trhdlr142
+    .long trhdlr143
+    .long trhdlr144
+    .long trhdlr145
+    .long trhdlr146
+    .long trhdlr147
+    .long trhdlr148
+    .long trhdlr149
+    .long trhdlr150
+    .long trhdlr151
+    .long trhdlr152
+    .long trhdlr153
+    .long trhdlr154
+    .long trhdlr155
+    .long trhdlr156
+    .long trhdlr157
+    .long trhdlr158
+    .long trhdlr159
+    .long trhdlr160
+    .long trhdlr161
+    .long trhdlr162
+    .long trhdlr163
+    .long trhdlr164
+    .long trhdlr165
+    .long trhdlr166
+    .long trhdlr167
+    .long trhdlr168
+    .long trhdlr169
+    .long trhdlr170
+    .long trhdlr171
+    .long trhdlr172
+    .long trhdlr173
+    .long trhdlr174
+    .long trhdlr175
+    .long trhdlr176
+    .long trhdlr177
+    .long trhdlr178
+    .long trhdlr179
+    .long trhdlr180
+    .long trhdlr181
+    .long trhdlr182
+    .long trhdlr183
+    .long trhdlr184
+    .long trhdlr185
+    .long trhdlr186
+    .long trhdlr187
+    .long trhdlr188
+    .long trhdlr189
+    .long trhdlr190
+    .long trhdlr191
+    .long trhdlr192
+    .long trhdlr193
+    .long trhdlr194
+    .long trhdlr195
+    .long trhdlr196
+    .long trhdlr197
+    .long trhdlr198
+    .long trhdlr199
+    .long trhdlr200
+    .long trhdlr201
+    .long trhdlr202
+    .long trhdlr203
+    .long trhdlr204
+    .long trhdlr205
+    .long trhdlr206
+    .long trhdlr207
+    .long trhdlr208
+    .long trhdlr209
+    .long trhdlr210
+    .long trhdlr211
+    .long trhdlr212
+    .long trhdlr213
+    .long trhdlr214
+    .long trhdlr215
+    .long trhdlr216
+    .long trhdlr217
+    .long trhdlr218
+    .long trhdlr219
+    .long trhdlr220
+    .long trhdlr221
+    .long trhdlr222
+    .long trhdlr223
+    .long trhdlr224
+    .long trhdlr225
+    .long trhdlr226
+    .long trhdlr227
+    .long trhdlr228
+    .long trhdlr229
+    .long trhdlr230
+    .long trhdlr231
+    .long trhdlr232
+    .long trhdlr233
+    .long trhdlr234
+    .long trhdlr235
+    .long trhdlr236
+    .long trhdlr237
+    .long trhdlr238
+    .long trhdlr239
+    .long trhdlr240
+    .long trhdlr241
+    .long trhdlr242
+    .long trhdlr243
+    .long trhdlr244
+    .long trhdlr245
+    .long trhdlr246
+    .long trhdlr247
+    .long trhdlr248
+    .long trhdlr249
+    .long trhdlr250
+    .long trhdlr251
+    .long trhdlr252
+    .long trhdlr253
+    .long trhdlr254
+    .long trhdlr255
+
 .text
 
 /*
  * Lab 3: Your code here for generating entry points for the different traps.
  */
-
-
+/*
+ * http://pdos.csail.mit.edu/6.828/2010/readings/i386/s09_10.htm
+ */
+TRAPHANDLER_NOEC(trhdlr0, 0)
+TRAPHANDLER_NOEC(trhdlr1, 1)
+TRAPHANDLER_NOEC(trhdlr2, 2)
+TRAPHANDLER_NOEC(trhdlr3, 3)
+TRAPHANDLER_NOEC(trhdlr4, 4)
+TRAPHANDLER_NOEC(trhdlr5, 5)
+TRAPHANDLER_NOEC(trhdlr6, 6)
+TRAPHANDLER_NOEC(trhdlr7, 7)
+TRAPHANDLER(trhdlr8, 8)
+TRAPHANDLER_NOEC(trhdlr9, 9)
+TRAPHANDLER(trhdlr10, 10)
+TRAPHANDLER(trhdlr11, 11)
+TRAPHANDLER(trhdlr12, 12)
+TRAPHANDLER(trhdlr13, 13)
+TRAPHANDLER(trhdlr14, 14)
+TRAPHANDLER(trhdlr15, 15)
+TRAPHANDLER_NOEC(trhdlr16, 16)
+TRAPHANDLER(trhdlr17, 17)
+TRAPHANDLER_NOEC(trhdlr18, 18)
+TRAPHANDLER_NOEC(trhdlr19, 19)
+TRAPHANDLER_NOEC(trhdlr20, 20)
+TRAPHANDLER_NOEC(trhdlr21, 21)
+TRAPHANDLER_NOEC(trhdlr22, 22)
+TRAPHANDLER_NOEC(trhdlr23, 23)
+TRAPHANDLER_NOEC(trhdlr24, 24)
+TRAPHANDLER_NOEC(trhdlr25, 25)
+TRAPHANDLER_NOEC(trhdlr26, 26)
+TRAPHANDLER_NOEC(trhdlr27, 27)
+TRAPHANDLER_NOEC(trhdlr28, 28)
+TRAPHANDLER_NOEC(trhdlr29, 29)
+TRAPHANDLER_NOEC(trhdlr30, 30)
+TRAPHANDLER_NOEC(trhdlr31, 31)
+TRAPHANDLER_NOEC(trhdlr32, 32)
+TRAPHANDLER_NOEC(trhdlr33, 33)
+TRAPHANDLER_NOEC(trhdlr34, 34)
+TRAPHANDLER_NOEC(trhdlr35, 35)
+TRAPHANDLER_NOEC(trhdlr36, 36)
+TRAPHANDLER_NOEC(trhdlr37, 37)
+TRAPHANDLER_NOEC(trhdlr38, 38)
+TRAPHANDLER_NOEC(trhdlr39, 39)
+TRAPHANDLER_NOEC(trhdlr40, 40)
+TRAPHANDLER_NOEC(trhdlr41, 41)
+TRAPHANDLER_NOEC(trhdlr42, 42)
+TRAPHANDLER_NOEC(trhdlr43, 43)
+TRAPHANDLER_NOEC(trhdlr44, 44)
+TRAPHANDLER_NOEC(trhdlr45, 45)
+TRAPHANDLER_NOEC(trhdlr46, 46)
+TRAPHANDLER_NOEC(trhdlr47, 47)
+TRAPHANDLER_NOEC(trhdlr48, 48)
+TRAPHANDLER_NOEC(trhdlr49, 49)
+TRAPHANDLER_NOEC(trhdlr50, 50)
+TRAPHANDLER_NOEC(trhdlr51, 51)
+TRAPHANDLER_NOEC(trhdlr52, 52)
+TRAPHANDLER_NOEC(trhdlr53, 53)
+TRAPHANDLER_NOEC(trhdlr54, 54)
+TRAPHANDLER_NOEC(trhdlr55, 55)
+TRAPHANDLER_NOEC(trhdlr56, 56)
+TRAPHANDLER_NOEC(trhdlr57, 57)
+TRAPHANDLER_NOEC(trhdlr58, 58)
+TRAPHANDLER_NOEC(trhdlr59, 59)
+TRAPHANDLER_NOEC(trhdlr60, 60)
+TRAPHANDLER_NOEC(trhdlr61, 61)
+TRAPHANDLER_NOEC(trhdlr62, 62)
+TRAPHANDLER_NOEC(trhdlr63, 63)
+TRAPHANDLER_NOEC(trhdlr64, 64)
+TRAPHANDLER_NOEC(trhdlr65, 65)
+TRAPHANDLER_NOEC(trhdlr66, 66)
+TRAPHANDLER_NOEC(trhdlr67, 67)
+TRAPHANDLER_NOEC(trhdlr68, 68)
+TRAPHANDLER_NOEC(trhdlr69, 69)
+TRAPHANDLER_NOEC(trhdlr70, 70)
+TRAPHANDLER_NOEC(trhdlr71, 71)
+TRAPHANDLER_NOEC(trhdlr72, 72)
+TRAPHANDLER_NOEC(trhdlr73, 73)
+TRAPHANDLER_NOEC(trhdlr74, 74)
+TRAPHANDLER_NOEC(trhdlr75, 75)
+TRAPHANDLER_NOEC(trhdlr76, 76)
+TRAPHANDLER_NOEC(trhdlr77, 77)
+TRAPHANDLER_NOEC(trhdlr78, 78)
+TRAPHANDLER_NOEC(trhdlr79, 79)
+TRAPHANDLER_NOEC(trhdlr80, 80)
+TRAPHANDLER_NOEC(trhdlr81, 81)
+TRAPHANDLER_NOEC(trhdlr82, 82)
+TRAPHANDLER_NOEC(trhdlr83, 83)
+TRAPHANDLER_NOEC(trhdlr84, 84)
+TRAPHANDLER_NOEC(trhdlr85, 85)
+TRAPHANDLER_NOEC(trhdlr86, 86)
+TRAPHANDLER_NOEC(trhdlr87, 87)
+TRAPHANDLER_NOEC(trhdlr88, 88)
+TRAPHANDLER_NOEC(trhdlr89, 89)
+TRAPHANDLER_NOEC(trhdlr90, 90)
+TRAPHANDLER_NOEC(trhdlr91, 91)
+TRAPHANDLER_NOEC(trhdlr92, 92)
+TRAPHANDLER_NOEC(trhdlr93, 93)
+TRAPHANDLER_NOEC(trhdlr94, 94)
+TRAPHANDLER_NOEC(trhdlr95, 95)
+TRAPHANDLER_NOEC(trhdlr96, 96)
+TRAPHANDLER_NOEC(trhdlr97, 97)
+TRAPHANDLER_NOEC(trhdlr98, 98)
+TRAPHANDLER_NOEC(trhdlr99, 99)
+TRAPHANDLER_NOEC(trhdlr100, 100)
+TRAPHANDLER_NOEC(trhdlr101, 101)
+TRAPHANDLER_NOEC(trhdlr102, 102)
+TRAPHANDLER_NOEC(trhdlr103, 103)
+TRAPHANDLER_NOEC(trhdlr104, 104)
+TRAPHANDLER_NOEC(trhdlr105, 105)
+TRAPHANDLER_NOEC(trhdlr106, 106)
+TRAPHANDLER_NOEC(trhdlr107, 107)
+TRAPHANDLER_NOEC(trhdlr108, 108)
+TRAPHANDLER_NOEC(trhdlr109, 109)
+TRAPHANDLER_NOEC(trhdlr110, 110)
+TRAPHANDLER_NOEC(trhdlr111, 111)
+TRAPHANDLER_NOEC(trhdlr112, 112)
+TRAPHANDLER_NOEC(trhdlr113, 113)
+TRAPHANDLER_NOEC(trhdlr114, 114)
+TRAPHANDLER_NOEC(trhdlr115, 115)
+TRAPHANDLER_NOEC(trhdlr116, 116)
+TRAPHANDLER_NOEC(trhdlr117, 117)
+TRAPHANDLER_NOEC(trhdlr118, 118)
+TRAPHANDLER_NOEC(trhdlr119, 119)
+TRAPHANDLER_NOEC(trhdlr120, 120)
+TRAPHANDLER_NOEC(trhdlr121, 121)
+TRAPHANDLER_NOEC(trhdlr122, 122)
+TRAPHANDLER_NOEC(trhdlr123, 123)
+TRAPHANDLER_NOEC(trhdlr124, 124)
+TRAPHANDLER_NOEC(trhdlr125, 125)
+TRAPHANDLER_NOEC(trhdlr126, 126)
+TRAPHANDLER_NOEC(trhdlr127, 127)
+TRAPHANDLER_NOEC(trhdlr128, 128)
+TRAPHANDLER_NOEC(trhdlr129, 129)
+TRAPHANDLER_NOEC(trhdlr130, 130)
+TRAPHANDLER_NOEC(trhdlr131, 131)
+TRAPHANDLER_NOEC(trhdlr132, 132)
+TRAPHANDLER_NOEC(trhdlr133, 133)
+TRAPHANDLER_NOEC(trhdlr134, 134)
+TRAPHANDLER_NOEC(trhdlr135, 135)
+TRAPHANDLER_NOEC(trhdlr136, 136)
+TRAPHANDLER_NOEC(trhdlr137, 137)
+TRAPHANDLER_NOEC(trhdlr138, 138)
+TRAPHANDLER_NOEC(trhdlr139, 139)
+TRAPHANDLER_NOEC(trhdlr140, 140)
+TRAPHANDLER_NOEC(trhdlr141, 141)
+TRAPHANDLER_NOEC(trhdlr142, 142)
+TRAPHANDLER_NOEC(trhdlr143, 143)
+TRAPHANDLER_NOEC(trhdlr144, 144)
+TRAPHANDLER_NOEC(trhdlr145, 145)
+TRAPHANDLER_NOEC(trhdlr146, 146)
+TRAPHANDLER_NOEC(trhdlr147, 147)
+TRAPHANDLER_NOEC(trhdlr148, 148)
+TRAPHANDLER_NOEC(trhdlr149, 149)
+TRAPHANDLER_NOEC(trhdlr150, 150)
+TRAPHANDLER_NOEC(trhdlr151, 151)
+TRAPHANDLER_NOEC(trhdlr152, 152)
+TRAPHANDLER_NOEC(trhdlr153, 153)
+TRAPHANDLER_NOEC(trhdlr154, 154)
+TRAPHANDLER_NOEC(trhdlr155, 155)
+TRAPHANDLER_NOEC(trhdlr156, 156)
+TRAPHANDLER_NOEC(trhdlr157, 157)
+TRAPHANDLER_NOEC(trhdlr158, 158)
+TRAPHANDLER_NOEC(trhdlr159, 159)
+TRAPHANDLER_NOEC(trhdlr160, 160)
+TRAPHANDLER_NOEC(trhdlr161, 161)
+TRAPHANDLER_NOEC(trhdlr162, 162)
+TRAPHANDLER_NOEC(trhdlr163, 163)
+TRAPHANDLER_NOEC(trhdlr164, 164)
+TRAPHANDLER_NOEC(trhdlr165, 165)
+TRAPHANDLER_NOEC(trhdlr166, 166)
+TRAPHANDLER_NOEC(trhdlr167, 167)
+TRAPHANDLER_NOEC(trhdlr168, 168)
+TRAPHANDLER_NOEC(trhdlr169, 169)
+TRAPHANDLER_NOEC(trhdlr170, 170)
+TRAPHANDLER_NOEC(trhdlr171, 171)
+TRAPHANDLER_NOEC(trhdlr172, 172)
+TRAPHANDLER_NOEC(trhdlr173, 173)
+TRAPHANDLER_NOEC(trhdlr174, 174)
+TRAPHANDLER_NOEC(trhdlr175, 175)
+TRAPHANDLER_NOEC(trhdlr176, 176)
+TRAPHANDLER_NOEC(trhdlr177, 177)
+TRAPHANDLER_NOEC(trhdlr178, 178)
+TRAPHANDLER_NOEC(trhdlr179, 179)
+TRAPHANDLER_NOEC(trhdlr180, 180)
+TRAPHANDLER_NOEC(trhdlr181, 181)
+TRAPHANDLER_NOEC(trhdlr182, 182)
+TRAPHANDLER_NOEC(trhdlr183, 183)
+TRAPHANDLER_NOEC(trhdlr184, 184)
+TRAPHANDLER_NOEC(trhdlr185, 185)
+TRAPHANDLER_NOEC(trhdlr186, 186)
+TRAPHANDLER_NOEC(trhdlr187, 187)
+TRAPHANDLER_NOEC(trhdlr188, 188)
+TRAPHANDLER_NOEC(trhdlr189, 189)
+TRAPHANDLER_NOEC(trhdlr190, 190)
+TRAPHANDLER_NOEC(trhdlr191, 191)
+TRAPHANDLER_NOEC(trhdlr192, 192)
+TRAPHANDLER_NOEC(trhdlr193, 193)
+TRAPHANDLER_NOEC(trhdlr194, 194)
+TRAPHANDLER_NOEC(trhdlr195, 195)
+TRAPHANDLER_NOEC(trhdlr196, 196)
+TRAPHANDLER_NOEC(trhdlr197, 197)
+TRAPHANDLER_NOEC(trhdlr198, 198)
+TRAPHANDLER_NOEC(trhdlr199, 199)
+TRAPHANDLER_NOEC(trhdlr200, 200)
+TRAPHANDLER_NOEC(trhdlr201, 201)
+TRAPHANDLER_NOEC(trhdlr202, 202)
+TRAPHANDLER_NOEC(trhdlr203, 203)
+TRAPHANDLER_NOEC(trhdlr204, 204)
+TRAPHANDLER_NOEC(trhdlr205, 205)
+TRAPHANDLER_NOEC(trhdlr206, 206)
+TRAPHANDLER_NOEC(trhdlr207, 207)
+TRAPHANDLER_NOEC(trhdlr208, 208)
+TRAPHANDLER_NOEC(trhdlr209, 209)
+TRAPHANDLER_NOEC(trhdlr210, 210)
+TRAPHANDLER_NOEC(trhdlr211, 211)
+TRAPHANDLER_NOEC(trhdlr212, 212)
+TRAPHANDLER_NOEC(trhdlr213, 213)
+TRAPHANDLER_NOEC(trhdlr214, 214)
+TRAPHANDLER_NOEC(trhdlr215, 215)
+TRAPHANDLER_NOEC(trhdlr216, 216)
+TRAPHANDLER_NOEC(trhdlr217, 217)
+TRAPHANDLER_NOEC(trhdlr218, 218)
+TRAPHANDLER_NOEC(trhdlr219, 219)
+TRAPHANDLER_NOEC(trhdlr220, 220)
+TRAPHANDLER_NOEC(trhdlr221, 221)
+TRAPHANDLER_NOEC(trhdlr222, 222)
+TRAPHANDLER_NOEC(trhdlr223, 223)
+TRAPHANDLER_NOEC(trhdlr224, 224)
+TRAPHANDLER_NOEC(trhdlr225, 225)
+TRAPHANDLER_NOEC(trhdlr226, 226)
+TRAPHANDLER_NOEC(trhdlr227, 227)
+TRAPHANDLER_NOEC(trhdlr228, 228)
+TRAPHANDLER_NOEC(trhdlr229, 229)
+TRAPHANDLER_NOEC(trhdlr230, 230)
+TRAPHANDLER_NOEC(trhdlr231, 231)
+TRAPHANDLER_NOEC(trhdlr232, 232)
+TRAPHANDLER_NOEC(trhdlr233, 233)
+TRAPHANDLER_NOEC(trhdlr234, 234)
+TRAPHANDLER_NOEC(trhdlr235, 235)
+TRAPHANDLER_NOEC(trhdlr236, 236)
+TRAPHANDLER_NOEC(trhdlr237, 237)
+TRAPHANDLER_NOEC(trhdlr238, 238)
+TRAPHANDLER_NOEC(trhdlr239, 239)
+TRAPHANDLER_NOEC(trhdlr240, 240)
+TRAPHANDLER_NOEC(trhdlr241, 241)
+TRAPHANDLER_NOEC(trhdlr242, 242)
+TRAPHANDLER_NOEC(trhdlr243, 243)
+TRAPHANDLER_NOEC(trhdlr244, 244)
+TRAPHANDLER_NOEC(trhdlr245, 245)
+TRAPHANDLER_NOEC(trhdlr246, 246)
+TRAPHANDLER_NOEC(trhdlr247, 247)
+TRAPHANDLER_NOEC(trhdlr248, 248)
+TRAPHANDLER_NOEC(trhdlr249, 249)
+TRAPHANDLER_NOEC(trhdlr250, 250)
+TRAPHANDLER_NOEC(trhdlr251, 251)
+TRAPHANDLER_NOEC(trhdlr252, 252)
+TRAPHANDLER_NOEC(trhdlr253, 253)
+TRAPHANDLER_NOEC(trhdlr254, 254)
+TRAPHANDLER_NOEC(trhdlr255, 255)
 
 /*
  * Lab 3: Your code here for _alltraps
  */
+_alltraps:
+	pushw $0x0
+	pushw %ds
+	pushw $0x0
+	pushw %es
+	pushal
 
+	movw $GD_KD, %ax
+	movw %ax, %ds
+	movw %ax, %es
+
+	pushl %esp
+	call trap
