@@ -117,3 +117,21 @@ sys_ipc_recv(void *dstva)
 	return syscall(SYS_ipc_recv, 1, (uint32_t)dstva, 0, 0, 0, 0);
 }
 
+// Lab 4 Challenge 2
+int
+sys_env_set_priority(envid_t envid, uint32_t priority)
+{
+	return syscall(SYS_env_set_priority, 1, envid, priority, 0, 0, 0);
+}
+
+int
+sys_env_get_runs(envid_t envid)
+{
+	return syscall(SYS_env_get_runs, 0, envid, 0, 0, 0, 0);
+}
+
+int
+sys_env_enable_priority(bool enabled)
+{
+	return syscall(SYS_env_enable_priority, 1, enabled, 0, 0, 0, 0);
+}
