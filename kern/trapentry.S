@@ -42,14 +42,48 @@
 	jmp _alltraps
 
 .text
-
 /*
  * Lab 3: Your code here for generating entry points for the different traps.
  */
+	TRAPHANDLER_NOEC(Entry_Divide_Error, T_DIVIDE);
+	TRAPHANDLER_NOEC(Entry_Debug_Exception, T_DEBUG);
+	TRAPHANDLER_NOEC(Entry_NMI_Exception, T_NMI);
+	TRAPHANDLER_NOEC(Entry_Breakpoint, T_BRKPT);
+	TRAPHANDLER_NOEC(Entry_Overflow, T_OFLOW);
+	TRAPHANDLER_NOEC(Entry_Bound_Check, T_BOUND);
+	TRAPHANDLER_NOEC(Entry_Illegal_Opcode, T_ILLOP);
+	TRAPHANDLER_NOEC(Entry_Device_Not_Available, T_DEVICE);
+	TRAPHANDLER(Entry_Double_Fault, T_DBLFLT);
+	TRAPHANDLER(Entry_T_COPROC, -1);// Reserved, 9,占位
+	TRAPHANDLER(Entry_Invalid_TSS, T_TSS);
+	TRAPHANDLER(Entry_Segment_Not_Present, T_SEGNP);
+	TRAPHANDLER(Entry_Stack_Exception, T_STACK);
+	TRAPHANDLER(Entry_General_Protection_Fault, T_GPFLT);
+	TRAPHANDLER(Entry_Page_Fault, T_PGFLT);
+	TRAPHANDLER(Entry_T_RES, -1);// Reserved, 15,占位
+	TRAPHANDLER_NOEC(Entry_Floating_Point_Error, T_FPERR);
+	TRAPHANDLER(Entry_Alignment_Check, T_ALIGN);
+	TRAPHANDLER_NOEC(Entry_Machine_Check, T_MCHK);
+	TRAPHANDLER_NOEC(Entry_Simd_Floating_Point_Error, T_SIMDERR);
+
+	// System Call Handle
+	TRAPHANDLER_NOEC(Entry_System_Call, T_SYSCALL);	
 
 
 
 /*
  * Lab 3: Your code here for _alltraps
  */
+
+_alltraps:
+	pushw $0x0
+	pushw %ds
+	pushw $0x0
+	pushw %es
+	pushal
+	movl $GD_KD, %eax;
+	movw %ax, %ds
+	movw %ax, %es
+	pushl %esp
+	call trap
 

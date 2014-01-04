@@ -149,6 +149,8 @@ mem_init(void)
 	//////////////////////////////////////////////////////////////////////
 	// Make 'envs' point to an array of size 'NENV' of 'struct Env'.
 	// LAB 3: Your code here.
+	envs = (struct Env *)boot_alloc(NENV * sizeof(struct Env));
+	memset(envs, 0, NENV * sizeof(struct Env));
 
 	//////////////////////////////////////////////////////////////////////
 	// Now that we've allocated the initial kernel data structures, we set
@@ -182,6 +184,8 @@ mem_init(void)
 	//    - the new image at UENVS  -- kernel R, user R
 	//    - envs itself -- kernel RW, user NONE
 	// LAB 3: Your code here.
+	boot_map_region(kern_pgdir, UENVS, ROUNDUP(NENV*sizeof(struct Env),PGSIZE), PADDR(envs), PTE_U | PTE_P);
+
 
 	//////////////////////////////////////////////////////////////////////
 	// Use the physical memory that 'bootstack' refers to as the kernel
@@ -417,18 +421,19 @@ boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm
 int
 page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
 {
-	pte_t *pte = pgdir_walk( pgdir, va, 1 ) ;
-	if ( pte == NULL ) return -E_NO_MEM ; 
-	if ( *pte & PTE_P ) {
-		if ( PTE_ADDR( *pte ) == page2pa( pp ) ) {
-			pp -> pp_ref -- ;
-			tlb_invalidate( pgdir, va ) ;
-		} else 
-			page_remove( pgdir, va ) ;
-	}
-	*pte = page2pa( pp ) | perm | PTE_P ;
-	pp -> pp_ref ++ ;
-	return 0;
+        // Fill this function in
+        pte_t *pgtable = pgdir_walk(pgdir, va, true);
+        if (pgtable == NULL)
+                return -E_NO_MEM;
+        if (*pgtable & PTE_P) {
+                if (PTE_ADDR(*pgtable) == page2pa(pp))
+                        pp->pp_ref--;
+                else
+                        page_remove(pgdir, va);
+        }
+        pp->pp_ref++;
+        *pgtable = page2pa(pp) | perm | PTE_P;
+        return 0;
 }
 
 //
@@ -514,6 +519,21 @@ int
 user_mem_check(struct Env *env, const void *va, size_t len, int perm)
 {
 	// LAB 3: Your code here.
+	pte_t *pte ;
+	perm = perm | PTE_P ;
+
+	uint32_t offset = ( uint32_t ) va ;
+	uint32_t va_end = ROUNDUP( ( uint32_t ) va + len , PGSIZE ) ;
+
+	for ( ; offset < va_end ; offset += PGSIZE )
+	{
+		pte = pgdir_walk( env -> env_pgdir , ( void *) offset , 0 ) ;
+		if ( offset >= ULIM || pte == NULL || (( *pte & perm ) != perm ) )
+		{
+			user_mem_check_addr = ( uintptr_t ) offset ;
+			return -E_FAULT ;
+		}
+	}
 
 	return 0;
 }

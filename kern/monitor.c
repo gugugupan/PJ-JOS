@@ -140,8 +140,10 @@ monitor(struct Trapframe *tf)
 {
 	char *buf;
 
-	cprintf("%F2Welcome %F1to %B5the %B0JOS %Fekernel %Bamonitor!\n");
+	cprintf("Welcome to the JOS kernel monitor!\n");
 	cprintf("Type 'help' for a list of commands.\n");
+	//int a , b ; a = 0 ; b = 1 / a ;
+	//cprintf("!!!!!!!!!!!%d\n" , b );
 
 	if (tf != NULL)
 		print_trapframe(tf);
